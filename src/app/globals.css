@@ -1,0 +1,19 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Geist Sans", sans-serif;
+}
+
+.page-container {
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar-container {
+  position: absolute;
+  display: flex;
+  bottom: 0;
+  height: 10dvh;
+  width: 100%;
+}
