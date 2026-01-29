@@ -16,7 +16,7 @@ const NavbarMobile = () => {
         <MenuButton
           icon="call"
           href="https://wa.me/3516468790"
-          size={50}
+          size={40}
           openInNewTab
         />
       </div>

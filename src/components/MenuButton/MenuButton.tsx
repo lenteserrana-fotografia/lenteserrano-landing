@@ -17,7 +17,7 @@ interface MenuButtonProps {
 const MenuButton = ({
   icon,
   onClick,
-  size = 40,
+  size = 30,
   href,
   openInNewTab = false,
   isActive = false,
