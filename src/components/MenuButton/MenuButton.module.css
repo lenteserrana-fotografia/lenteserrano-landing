@@ -1,0 +1,21 @@
+.menu-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+  width: 100%;
+  position: relative; /* Required for pseudo-element positioning */
+}
+
+.menu-button:hover {
+  transform: scale(1.1);
+  transition-duration: 150ms;
+}
+
+.menu-button:active {
+  background-color: transparent;
+  transform: scale(1.2);
+  transition-duration: 150ms;
+}

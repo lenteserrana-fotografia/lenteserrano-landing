@@ -1,0 +1,25 @@
+.menu-button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  padding-bottom: 8px;
+}
+
+.menu-button-center {
+  transform: translateY(-30%);
+  background-color: black;
+  padding: 20px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: white;
+  border-radius: 50%;
+}
+
+@media (min-width: 768px) {
+  .menu-button-container {
+    display: none;
+  }
+}
