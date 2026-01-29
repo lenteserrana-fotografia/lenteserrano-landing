@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Home from "@/assets/icon/home.svg";
 import Call from "@/assets/icon/call.svg";
 import Camera from "@/assets/icon/camera.svg";
@@ -19,15 +18,19 @@ interface StyledIconProps {
 export default function Icon({
   name,
   size = 28,
-  iconColor,
+  iconColor = "white",
 }: StyledIconProps): React.ReactElement {
   const IconComponent = icons[name as keyof typeof icons];
 
   return (
-    <div style={{ color: iconColor }}>
-      {IconComponent ? (
-        <Image src={IconComponent} alt={name} width={size} height={size} />
-      ) : null}
-    </div>
+    <div
+      style={{
+        width: size,
+        height: size,
+        backgroundColor: iconColor,
+        mask: `url(${IconComponent.src}) no-repeat center / contain`,
+        WebkitMask: `url(${IconComponent.src}) no-repeat center / contain`,
+      }}
+    />
   );
 }
