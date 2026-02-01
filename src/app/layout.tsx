@@ -34,7 +34,6 @@ export default function RootLayout({
             width={150}
             height={60}
             objectFit="contain"
-            style={{ backgroundColor: "white", borderStyle: "none" }}
           />
         </div>
         <div className="page-container">{children}</div>
