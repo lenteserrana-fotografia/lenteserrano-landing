@@ -38,10 +38,7 @@ const MenuButton = ({
   };
 
   return (
-    <div
-      onClick={handleClick}
-      className={`${styles["menu-button"]} ${isActive ? styles["menu-button-active"] : ""}`}
-    >
+    <div onClick={handleClick} className={`${styles["menu-button"]}`}>
       <Icon
         name={icon}
         size={size}

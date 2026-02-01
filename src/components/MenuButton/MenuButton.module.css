@@ -8,14 +8,3 @@
   width: 100%;
   position: relative; /* Required for pseudo-element positioning */
 }
-
-.menu-button:hover {
-  transform: scale(1.1);
-  transition-duration: 150ms;
-}
-
-.menu-button:active {
-  background-color: transparent;
-  transform: scale(1.2);
-  transition-duration: 150ms;
-}
