@@ -32,7 +32,7 @@ export default function RootLayout({
             src="/logo-cropped.svg"
             alt="Header Image"
             width={150}
-            height={60}
+            height={50}
             objectFit="contain"
           />
         </div>

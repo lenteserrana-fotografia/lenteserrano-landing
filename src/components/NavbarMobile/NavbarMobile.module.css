@@ -21,8 +21,8 @@
   border-right-width: 0;
   border-style: solid;
   border-color: white;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
 }
 
 @media (min-width: 768px) {
