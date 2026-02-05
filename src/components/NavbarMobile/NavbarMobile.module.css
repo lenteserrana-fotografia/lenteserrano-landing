@@ -1,0 +1,31 @@
+.menu-button-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  border-top-width: 0.4px;
+  border-top-style: solid;
+  border-top-color: white;
+}
+
+.menu-button-center {
+  transform: translateY(-40%);
+  background-color: black;
+  padding: 20px;
+  border-top-width: 1px;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-style: solid;
+  border-color: white;
+  border-top-left-radius: 40%;
+  border-top-right-radius: 40%;
+}
+
+@media (min-width: 768px) {
+  .menu-button-container {
+    display: none;
+  }
+}

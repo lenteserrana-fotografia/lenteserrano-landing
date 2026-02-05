@@ -1,10 +1,8 @@
-import StoriesCarousel from "@/components/StoriesCarousel/StoriesCarousel";
-import styles from "./page.module.css";
+import React from "react";
 
-export default function Home() {
+const page = () => {
   return (
-    <div className={styles.page}>
-      <StoriesCarousel />
+    <div>
       <h1>Testing Overflow Behavior</h1>
       {Array.from({ length: 10 }).map((_, i) => (
         <p key={i}>
@@ -18,6 +16,17 @@ export default function Home() {
           {i + 1}
         </p>
       ))}
+      <div
+        style={{
+          width: "3000px",
+          height: "200px",
+          background: "linear-gradient(to right, red, blue)",
+        }}
+      >
+        Wide horizontal content to test horizontal overflow
+      </div>
     </div>
   );
-}
+};
+
+export default page;

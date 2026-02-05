@@ -1,0 +1,10 @@
+.menu-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-tap-highlight-color: transparent;
+  height: 100%;
+  width: 100%;
+  position: relative; /* Required for pseudo-element positioning */
+}
