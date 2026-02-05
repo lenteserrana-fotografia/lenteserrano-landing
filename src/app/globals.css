@@ -10,7 +10,9 @@ body {
   max-height: 100dvh;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 2rem;
+  padding: 8px;
+  margin-top: 5dvh;
+  margin-bottom: 8dvh;
 }
 
 .navbar-container {

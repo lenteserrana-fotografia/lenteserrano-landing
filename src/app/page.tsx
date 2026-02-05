@@ -18,15 +18,6 @@ export default function Home() {
           {i + 1}
         </p>
       ))}
-      <div
-        style={{
-          width: "3000px",
-          height: "200px",
-          background: "linear-gradient(to right, red, blue)",
-        }}
-      >
-        Wide horizontal content to test horizontal overflow
-      </div>
     </div>
   );
 }
