@@ -1,0 +1,24 @@
+.text {
+  font-size: var(--text-md);
+  line-height: 1.5;
+}
+
+.xs {
+  font-size: var(--text-xs);
+}
+
+.sm {
+  font-size: var(--text-sm);
+}
+
+.md {
+  font-size: var(--text-md);
+}
+
+.lg {
+  font-size: var(--text-lg);
+}
+
+.xl {
+  font-size: var(--text-xl);
+}

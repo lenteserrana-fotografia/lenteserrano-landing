@@ -1,4 +1,3 @@
 @import "./reset.css";
-@import "./fonts.css";
-@import "./palette.css";    
-@import "./global.css";
+@import "./palette.css";
+@import "./text.css";
