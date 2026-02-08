@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { useRouter } from "next/navigation";
 import Icon from "../Icon/Icon";
 import styles from "./MenuButton.module.css";
@@ -39,11 +38,7 @@ const MenuButton = ({
 
   return (
     <div onClick={handleClick} className={`${styles["menu-button"]}`}>
-      <Icon
-        name={icon}
-        size={size}
-        iconColor={isActive ? "white" : "grey"}
-      ></Icon>
+      <Icon name={icon} size={size} iconColor={isActive ? "white" : "grey"} />
     </div>
   );
 };
