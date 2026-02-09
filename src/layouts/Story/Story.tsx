@@ -20,33 +20,37 @@ interface StoryProps {
   story: StoryData;
   onClose: () => void;
   onNext: () => void;
-  onPrevious: () => void;
 }
 
-const Story = ({ story, onClose, onNext, onPrevious }: StoryProps) => {
+const Story = ({ story, onClose, onNext }: StoryProps) => {
   const [currentMediaIndex, setCurrentMediaIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const progressRef = useRef(0);
 
   const currentMedia = story.media[currentMediaIndex];
   const isLastMedia = currentMediaIndex === story.media.length - 1;
 
   const goToNextMedia = useCallback(() => {
+    progressRef.current = 0;
+    setProgress(0);
+
     if (isLastMedia) {
       onNext();
       setCurrentMediaIndex(0);
     } else {
       setCurrentMediaIndex((prev) => prev + 1);
-      setProgress(0);
     }
   }, [isLastMedia, onNext]);
 
   const goToPreviousMedia = useCallback(() => {
+    progressRef.current = 0;
+    setProgress(0);
+
     if (currentMediaIndex > 0) {
       setCurrentMediaIndex((prev) => prev - 1);
-      setProgress(0);
     } else {
       setCurrentMediaIndex(0);
     }
@@ -60,9 +64,8 @@ const Story = ({ story, onClose, onNext, onPrevious }: StoryProps) => {
       if (!video) return;
 
       const updateProgress = () => {
-        if (video.duration && video.currentTime) {
-          setProgress((video.currentTime / video.duration) * 100);
-        }
+        if (!Number.isFinite(video.duration) || video.duration <= 0) return;
+        setProgress((video.currentTime / video.duration) * 100);
       };
 
       const handleEnded = () => {
@@ -76,28 +79,31 @@ const Story = ({ story, onClose, onNext, onPrevious }: StoryProps) => {
         video.removeEventListener("timeupdate", updateProgress);
         video.removeEventListener("ended", handleEnded);
       };
-    } else {
-      // Image with default duration
-      const duration = (currentMedia.duration || 15) * 1000;
-      const interval = 50;
-      const increment = (interval / duration) * 100;
-
-      timerRef.current = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 100) {
-            goToNextMedia();
-            return 0;
-          }
-          return prev + increment;
-        });
-      }, interval);
-
-      return () => {
-        if (timerRef.current) {
-          clearInterval(timerRef.current);
-        }
-      };
     }
+
+    // Image: drive both progress + navigation from the timer callback (no setState in effect body)
+    progressRef.current = 0;
+
+    const durationMs = (currentMedia.duration || 15) * 1000;
+    const intervalMs = 50;
+    const increment = (intervalMs / durationMs) * 100;
+
+    timerRef.current = setInterval(() => {
+      const next = Math.min(100, progressRef.current + increment);
+      progressRef.current = next;
+      setProgress(next);
+
+      if (next >= 100) {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = null;
+        goToNextMedia();
+      }
+    }, intervalMs);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = null;
+    };
   }, [currentMedia, isPaused, goToNextMedia]);
 
   const handleTap = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -105,22 +111,18 @@ const Story = ({ story, onClose, onNext, onPrevious }: StoryProps) => {
     const x = e.clientX - rect.left;
     const isLeftSide = x < rect.width / 2;
 
-    if (isLeftSide) {
-      goToPreviousMedia();
-    } else {
-      goToNextMedia();
-    }
+    if (isLeftSide) goToPreviousMedia();
+    else goToNextMedia();
   };
 
   const togglePause = () => {
-    setIsPaused(!isPaused);
-    if (videoRef.current) {
-      if (isPaused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
+    const nextPaused = !isPaused;
+    setIsPaused(nextPaused);
+
+    const v = videoRef.current;
+    if (!v) return;
+    if (nextPaused) v.pause();
+    else v.play();
   };
 
   return (

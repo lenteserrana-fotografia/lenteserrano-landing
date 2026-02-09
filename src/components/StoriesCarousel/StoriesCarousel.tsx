@@ -23,6 +23,45 @@ interface StoryButtonProps {
   onClick?: () => void;
 }
 
+const stories: StoryData[] = [
+  {
+    username: "Desafio Buffo",
+    avatarUrl: "/images/avatar-buffo.png",
+    media: [
+      { url: "/images/photo-1.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-2.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-3.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-4.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-5.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-6.jpg", type: "image", duration: 1 },
+      { url: "/images/photo-7.jpg", type: "image", duration: 15 },
+    ],
+  },
+  {
+    username: "Story 2",
+    avatarUrl: "/images/sample.jpg",
+    media: [
+      { url: "/images/sample.jpg", type: "image", duration: 15 },
+      { url: "/videos/video-sample.mp4", type: "video" },
+    ],
+  },
+  {
+    username: "Story 3",
+    avatarUrl: "/images/sample.jpg",
+    media: [{ url: "/images/sample.jpg", type: "image", duration: 15 }],
+  },
+  {
+    username: "Story 4",
+    avatarUrl: "/images/sample.jpg",
+    media: [{ url: "/images/sample.jpg", type: "image", duration: 3 }],
+  },
+  {
+    username: "Story 5",
+    avatarUrl: "/images/sample.jpg",
+    media: [{ url: "/images/sample.jpg", type: "image", duration: 1 }],
+  },
+];
+
 const StoryButton = ({ username, imageUrl, onClick }: StoryButtonProps) => {
   const [isActive, setIsActive] = useState(false);
 
@@ -63,44 +102,12 @@ const StoryButton = ({ username, imageUrl, onClick }: StoryButtonProps) => {
 const StoriesCarousel = () => {
   const [activeStoryIndex, setActiveStoryIndex] = useState<number | null>(null);
 
-  const stories: StoryData[] = [
-    {
-      username: "Story 1",
-      avatarUrl: "/images/sample.jpg",
-      media: [
-        { url: "/images/sample.jpg", type: "image", duration: 15 },
-        { url: "/images/sample.jpg", type: "image", duration: 15 },
-      ],
-    },
-    {
-      username: "Story 2",
-      avatarUrl: "/images/sample.jpg",
-      media: [
-        { url: "/images/sample.jpg", type: "image", duration: 15 },
-        { url: "/videos/video-sample.mp4", type: "video" },
-      ],
-    },
-    {
-      username: "Story 3",
-      avatarUrl: "/images/sample.jpg",
-      media: [{ url: "/images/sample.jpg", type: "image", duration: 15 }],
-    },
-  ];
-
-  const handleCloseStory = useCallback(() => {
-    setActiveStoryIndex(null);
-  }, []);
-
   const handleNextStory = useCallback(() => {
-    if (activeStoryIndex === null) {
-      return;
-    }
-    if (activeStoryIndex < stories.length - 1) {
-      setActiveStoryIndex(activeStoryIndex + 1);
-    } else {
-      handleCloseStory();
-    }
-  }, [activeStoryIndex, stories.length, handleCloseStory]);
+    setActiveStoryIndex((prev) => {
+      if (prev === null) return null;
+      return prev < stories.length - 1 ? prev + 1 : null;
+    });
+  }, []);
 
   return (
     <>
@@ -117,17 +124,8 @@ const StoriesCarousel = () => {
       {activeStoryIndex !== null && (
         <Story
           story={stories[activeStoryIndex]}
-          onClose={handleCloseStory}
+          onClose={() => setActiveStoryIndex(null)}
           onNext={handleNextStory}
-          onPrevious={() => {
-            if (activeStoryIndex > 0) {
-              setActiveStoryIndex(activeStoryIndex - 1);
-            } else if (activeStoryIndex === 0) {
-              handleCloseStory();
-            } else {
-              setActiveStoryIndex(activeStoryIndex - 1);
-            }
-          }}
         />
       )}
     </>
